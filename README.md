@@ -37,4 +37,4 @@ something you'd want to do.
 [nexmo]: https://nexmosphere.com/document/API_Manual_Q3_2021.pdf
 [install]: ./INSTALL.md
 [website]: https://pixplicity.com/chuckberry
-[blog]: https://medium.com/@mathijsl
+[blog]: https://medium.com/@mathijsl/hi-im-the-chuckberry-da7e610baa7b
