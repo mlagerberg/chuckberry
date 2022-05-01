@@ -1,0 +1,6 @@
+# ChuckBerry
+spotify-cli==0.3.11
+pyserial==3.5
+python-dotenv
+xled
+pyttsx3

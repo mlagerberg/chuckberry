@@ -1,0 +1,59 @@
+{
+    "data": {
+        "title": "ChuckBerry at Pix HQ",
+        "tags": [
+            {
+                "tag_number": "1",
+                "tag_name": "Refresh icon",
+                "color": "00FF00",
+                "action": "refresh"
+            },
+            {
+                "tag_number": "2",
+                "tag_name": "Power button",
+                "color": "FF0000",
+                "action": "shutdown"
+            },
+            {
+                "tag_number": "3",
+                "tag_name": "ChuckBerry",
+                "playlist_name": "Chuck Berry",
+                "type": "spotify_artist",
+                "link": "https://open.spotify.com/artist/293zczrfYafIItmnmM3coR?si=8gH3R7obRRyTyXpW5_RtUA",
+                "color": "d66b0e"
+            },
+            {
+                "tag_number": "4",
+                "tag_name": "Pix Logo",
+                "playlist_name": "Summer '22",
+                "type": "spotify_playlist",
+                "link": "https://open.spotify.com/playlist/37i9dQZF1DXcx1szy2g67M?si=f526b33d3ca348a5",
+                "color": "d66b0e"
+            },
+            {
+                "tag_number": "5",
+                "tag_name": "Pacman figurine",
+                "playlist_name": "Pacman Themesong",
+                "type": "spotify_playlist",
+                "link": "https://open.spotify.com/track/7rpECh1TwouaZ4eNZHSeY8?si=8c3c148f1b2a4723",
+                "color": "d66b0e"
+            },
+            {
+                "tag_number": "6",
+                "tag_name": "Android",
+                "playlist_name": "Paranoid Android",
+                "type": "spotify_album",
+                "link": "OK Computer",
+                "color": "d66b0e"
+            },
+            {
+                "tag_number": "7",
+                "playlist_name": "Christmas",
+                "tag_name": "Christmas ornament",
+                "type": "spotify_playlist",
+                "link": "https://open.spotify.com/playlist/37i9dQZF1DX0Yxoavh5qJV?si=3132f9c8c38a497d",
+                "color": "00e300"
+            }
+        ]
+    }
+}
