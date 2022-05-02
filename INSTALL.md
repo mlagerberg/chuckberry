@@ -13,7 +13,7 @@ install if you want to do it manually.
 The required packages are these:
 
 ```bash
-sudo apt install python3-pip python3-venv
+sudo apt install python3-pip python3-venv ffmpeg libavcodec-extra
 pip3 install -r requirements.txt
 ```
 

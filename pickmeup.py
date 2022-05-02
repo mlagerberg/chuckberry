@@ -53,7 +53,7 @@ class PickMeUp:
 			# dmesg | grep tty
 			try:
 				self.connection = serial.Serial('/dev/ttyUSB0', 115200)
-			except SerialException:
+			except serial.serialutil.SerialException:
 				print( ("Unable to connect to sensor. Please check if device is running, and "
 					   	"if /dev/ttyUSB0 is the correct address by running `dmesg | grep tty` "
 						"Update pickmeup.py if needed.") )

@@ -4,3 +4,6 @@ pyserial==3.5
 python-dotenv
 xled
 pyttsx3
+#pygobject
+#playsound
+pydub

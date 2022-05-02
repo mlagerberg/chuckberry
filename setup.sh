@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install Linux packages
-sudo apt install python3-pip python3-venv libpulse0 espeak
+sudo apt install python3-pip python3-venv libpulse0 espeak ffmpeg libavcodec-extra
 # This helps install dependencies for libpulse:
 sudo apt --fix-broken install
 

@@ -11,8 +11,17 @@ from taghelper import getTags
 from tag import Tag
 from lights import Lights
 from tts import TTS
+from pydub import AudioSegment
+from pydub.playback import play
 
 class Chuckberry:
+
+	AUDIO_RESPONSE_TTS = "tts"
+	AUDIO_RESPONSE_NOTIFICATION = "notification"
+	AUDIO_RESPONSE_NONE = "none"
+	NOTIFICATION_STARTUP = 0
+	NOTIFICATION_SUCCESS = 1
+	NOTIFICATION_ERROR = 2
 
 	def __init__(self):
 		self.tags = {}
@@ -24,15 +33,25 @@ class Chuckberry:
 		load_dotenv()
 		self.endpoint = os.getenv('ENDPOINT')
 		self.enableLights = not os.getenv('DISABLE_LIGHTS') == "true"
-		self.enableTTS = not os.getenv('DISABLE_TTS') == "true"
+		self.audioResponse = os.getenv('AUDIO_RESPONSE')
+		# Load audio fragments (if needed)
+		if self.audioResponse == "notification":
+			self.sounds = [None, None, None]
+			self.sounds[0] = AudioSegment.from_mp3("./assets/startup.mp3")
+			self.sounds[1] = AudioSegment.from_mp3("./assets/success.mp3")
+			self.sounds[2] = AudioSegment.from_mp3("./assets/error.mp3")
 		# Connect to the Twinkly lights
 		self.lights = Lights()
 		if self.enableLights:
 			self.lights.connect()
 
-	def say(self, msg):
-		if self.enableTTS:
+	def say(self, msg, type = -1):
+		if self.audioResponse == Chuckberry.AUDIO_RESPONSE_TTS:
 			self.tts.say(msg)
+		elif self.audioResponse == Chuckberry.AUDIO_RESPONSE_NOTIFICATION:
+			print(msg)
+			if type >= 0:
+				play(self.sounds[type])
 
 	def loadConfig(self):
 		print('Loading project configuration...')
@@ -54,7 +73,7 @@ class Chuckberry:
 			# Only pause if we picked up the tag that last started playing
 			if tag.number == self.lastTag:
 				self.spotify.pause()
-				self.say('Playback paused')
+				self.say('Playback paused', type = Chuckberry.NOTIFICATION_SUCCESS)
 				self.lastTag = tag.number
 				self.lastTimestamp = time.time()
 
@@ -65,7 +84,7 @@ class Chuckberry:
 			self.putBackTag(self.tags[key])
 		else:
 			self.lights.error()
-			self.say(f'No playlist associated with tag {tagNumber}')
+			self.say(f'No playlist associated with tag {tagNumber}', type = Chuckberry.NOTIFICATION_ERROR)
 
 	def putBackTag(self, tag):
 		if tag.action is not None:
@@ -111,19 +130,19 @@ class Chuckberry:
 		"""
 		if action == "refresh":
 			self.lights.blink(Lights.REFRESH_COLOR)
-			self.say('Refreshing configuration')
+			self.say('Refreshing configuration', type = Chuckberry.NOTIFICATION_SUCCESS)
 			self.loadConfig()
 			if self.spotify.selectDevice():
-				self.say('Done')
+				self.say('Done', type = Chuckberry.NOTIFICATION_STARTUP)
 			else:
 				self.say('Please start Spotify playback on one of your devices')
 		elif action == "shutdown":
 			if isRoot():
 				self.lights.blink(Lights.SHUTDOWN_COLOR)
-				self.say('Shutting down...')
+				self.say('Shutting down...', type = Chuckberry.NOTIFICATION_SUCCESS)
 				os.system("halt")
 			else:
-				self.say('Cannot shut down, not enough permission')
+				self.say('Cannot shut down, not enough permission', type = Chuckberry.NOTIFICATION_ERROR)
 				self.lights.error()
 		else:
 			print(f'Unknown command: {action}')
@@ -149,10 +168,10 @@ def main():
 	# Select a device to play one. Assumes we're logged in to spotify-cli, and that the name of the device is in the .env
 	print('Connecting to Spotify...')
 	if chuck.spotify.selectDevice():
-		chuck.say("Ready")
+		chuck.say("Ready", type = Chuckberry.NOTIFICATION_STARTUP)
 		chuck.lights.ready()
 	else:
-		chuck.say('Please start Spotify playback on one of your devices.')
+		chuck.say('Please start Spotify playback on one of your devices.', type = Chuckberry.NOTIFICATION_ERROR)
 		chuck.lights.error()
 	# Start main loop
 	if pu.startThread():
