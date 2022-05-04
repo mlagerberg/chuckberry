@@ -136,6 +136,11 @@ class Chuckberry:
 				self.say('Done', type = Chuckberry.NOTIFICATION_STARTUP)
 			else:
 				self.say('Please start Spotify playback on one of your devices')
+		elif action == "next":
+			self.lights.blink(Lights.DEFAULT_COLOR)
+			self.say('Next!', type = Chuckberry.NOTIFICATION_SUCCESS)
+			self.spotify.selectDevice()
+			self.spotify.next()
 		elif action == "shutdown":
 			if isRoot():
 				self.lights.blink(Lights.SHUTDOWN_COLOR)

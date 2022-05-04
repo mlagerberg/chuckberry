@@ -10,9 +10,14 @@ class Spotify:
 		self.clientSecret = os.getenv('SPOTIFY_CLIENT_SECRET')
 		self.deviceName = os.getenv('SPOTIFY_DEVICE')
 
+	def exec(self, command):
+		full_command = f'spotify {command}'
+		print(f'executing: {full_command}')
+		os.system(full_command)
+
 	def login(self):
 		# Note: this exits the app, you'll have to start the script again
-		os.system(f'spotify auth login --client-id {self.clientId} --client-secret {self.clientSecret}')
+		self.exec(f'auth login --client-id {self.clientId} --client-secret {self.clientSecret}')
 
 	def selectDevice(self):
 		"""
@@ -25,35 +30,35 @@ class Spotify:
 		p = subprocess.run(["spotify", "device", "--switch-to", self.deviceName], stdin=subprocess.DEVNULL)
 		return p.returncode == 0
 
+	def next(self):
+		self.exec('next')
+
 	def playPlaylist(self, playlist):
 		# The playlist can be passed as either the playlist ID,
 		# or as the share link to the playlist
 		if playlist.startswith('http'):
 			self.playLink(playlist)
 		else:
-			os.system(f'spotify play --playlist spotify:playlist:{playlist} --shuffle on --repeat all')
-		# Because '--shuffle on' does not seem to work as it should, we issue an extra command:
-		os.system('spotify shuffle on')
-		os.system('spotify next')
+			self.exec(f'play --playlist spotify:playlist:{playlist} --shuffle on --repeat all')
 
 	def playLink(self, url):
 		# The link can be any Spotify share link. Playlist, artist, etc.
-		os.system(f'spotify play --uri {url} --shuffle on --repeat all')
+		self.exec(f'play --uri {url} --shuffle on --repeat all')
 
 	def playArtist(self, artist):
 		# Basically a search query, but limited to artists
-		os.system('spotify play --artist {artist} --shuffle on --repeat all')
+		self.exec(f'play --artist {artist} --shuffle on --repeat all')
 
 	def playAlbum(self, album):
 		# Search, limited to albums
-		os.system('spotify play --album {album} --shuffle on --repeat all')
+		self.exec(f'play --album {album} --shuffle on --repeat all')
 
 	def playSearch(self, query):
 		# Unlimited search. Plays whatever matches best
-		os.system('spotify play {query}')
+		self.exec(f'play {query}')
 
 	def pause(self):
-		os.system('spotify pause')
+		self.exec('pause')
 
 	def resume(self):
-		os.system('spotify play')
+		self.exec('play')
