@@ -45,10 +45,6 @@ class Spotify:
 		# The link can be any Spotify share link. Playlist, artist, etc.
 		self.exec(f'play --uri {url} --shuffle on --repeat all')
 
-	def playArtist(self, artist):
-		# Basically a search query, but limited to artists
-		self.exec(f'play --artist {artist} --shuffle on --repeat all')
-
 	def playAlbum(self, album):
 		# Search, limited to albums
 		self.exec(f'play --album {album} --shuffle on --repeat all')

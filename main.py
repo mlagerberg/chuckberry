@@ -107,10 +107,6 @@ class Chuckberry:
 				self.spotify.playPlaylist(tag.url)
 				print(f'Starting {tag.type} {tag.url}')
 				self.say(f'Tag detected. Playing {tag.playlist_name}')
-			elif tag.type == Tag.TYPE_SPOTIFY_ARTIST:
-				self.spotify.playArtist(tag.url)
-				print(f'Starting {tag.type} {tag.url}')
-				self.say(f'Tag detected. Playing {tag.playlist_name}')
 			elif tag.type == Tag.TYPE_SPOTIFY_ALBUM:
 				self.spotify.playAlbum(tag.url)
 				print(f'Starting {tag.type} {tag.url}')

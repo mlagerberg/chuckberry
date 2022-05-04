@@ -5,7 +5,6 @@ class TagFormatError(Exception):
 class Tag:
 
 	TYPE_SPOTIFY_PLAYLIST = "spotify_playlist"
-	TYPE_SPOTIFY_ARTIST = "spotify_artist"
 	TYPE_SPOTIFY_ALBUM = "spotify_album"
 	TYPE_SPOTIFY_SEARCH = "spotify_search"
 	TYPE_LOCAL_PATH = "filepath"
@@ -56,8 +55,6 @@ class Tag:
 		"""
 		if self.type == Tag.TYPE_SPOTIFY_PLAYLIST:
 			return "playlist"
-		elif self.type == Tag.TYPE_SPOTIFY_ARTIST:
-			return "artist"
 		elif self.type == Tag.TYPE_SPOTIFY_ALBUM:
 			return "album"
 		elif self.type == Tag.TYPE_SPOTIFY_SEARCH:
