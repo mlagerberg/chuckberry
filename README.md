@@ -29,6 +29,19 @@ something you'd want to do.
 
 ![Hardware blueprint](assets/architecture.png)
 
+### Troubleshooting
+
+Does Spotify pretend to play music, but you hear nothing? And the confirmation beeps and sounds are working just find?
+The `LibreSpot` service we use to turn the Pi into a connected speaker might be having trouble with Spotify.
+Try adding these lines to `/etc/hosts`:
+
+```
+127.0.0.1 	apresolve.spotify.com
+104.199.65.124 	ap-gew4.spotify.com
+```
+
+Thanks to [this user on Github][github-fix].
+
 ### More info
 
 - Nexmosphere [serial protocol documentation][nexmo] (PDF).
@@ -38,3 +51,4 @@ something you'd want to do.
 [install]: ./INSTALL.md
 [website]: https://pixplicity.com/chuckberry
 [blog]: https://medium.com/@mathijsl/hi-im-the-chuckberry-da7e610baa7b
+[github-fix]: https://github.com/librespot-org/librespot/issues/972#issuecomment-1189908304

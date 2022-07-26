@@ -14,6 +14,12 @@ sudo systemctl enable raspotify
 # Install Python modules
 sudo pip3 install -r requirements.txt
 
+# Workaround for a Spotify connection issue in certain countries:
+echo <<EOF >> /etc/hosts
+127.0.0.1 	apresolve.spotify.com
+104.199.65.124 	ap-gew4.spotify.com
+EOF
+
 echo <<EOF
 Done.
 Edit .env and then start the ChuckBerry by running:
